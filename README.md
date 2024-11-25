@@ -1,69 +1,101 @@
 # Infobip Email Sender with File Attachment
 
-This script demonstrates how to send emails with attachments using the [Infobip Email API](https://www.infobip.com/docs/api#channels/email) and Python's `requests` library.
+This repository contains two Python scripts that demonstrate how to send emails with attachments using the [Infobip Email API](https://www.infobip.com/docs/api#channels/email). The scripts utilize two different libraries:
+
+1. **`requests`** (for synchronous HTTP requests)
+2. **`aiohttp`** (for asynchronous HTTP requests)
 
 ## Features
 
 - Send emails with custom HTML content.
 - Attach a file (e.g., a PDF receipt) to the email.
 - Specify the sender's name and email address.
-- Utilize Infobip's API for robust email delivery.
+- Choose between synchronous (`requests`) and asynchronous (`aiohttp`) implementations.
+
+---
+
+## Scripts Overview
+
+### 1. **`email_sender_requests.py`**
+This script uses the `requests` library to send an email with an attachment.
+
+#### Key Characteristics:
+- **Synchronous Implementation:** Each API call blocks the program until it completes.
+- Simple to set up and execute.
+- Suitable for straightforward tasks without concurrency.
+
+---
+
+### 2. **`email_sender_aiohttp.py`**
+This script uses the `aiohttp` library for an asynchronous approach to sending emails with attachments.
+
+#### Key Characteristics:
+- **Asynchronous Implementation:** Supports non-blocking I/O operations, making it efficient for tasks requiring high concurrency.
+- Requires Python's `asyncio` to manage event loops and tasks.
+
+---
 
 ## Prerequisites
 
 1. **Infobip Account:** Ensure you have an active Infobip account with access to the Email API.
 2. **API Key:** Obtain your Infobip API key from the [Infobip Dashboard](https://portal.infobip.com/).
-3. **Python Environment:** The script is written in Python and requires the following modules:
-   - `requests`
-   - `mimetypes`
-   - `email.utils`
+3. **Python Environment:** Install the required libraries:
+   - `requests` (for the synchronous script)
+   - `aiohttp` (for the asynchronous script)
 
-   You can install the `requests` library using pip:
+   Use pip to install them:
    ```bash
-   pip install requests
+   pip install requests aiohttp
    ```
 
 4. **Email Setup:**
-   - Replace `YOUR_API_KEY`, `YOUR_EMAIL_ADDRESS`, and `YOUR_EMAIL_FROM` in the script with your actual Infobip API key, sender email address, and sender name.
+   - Replace `YOUR_API_KEY`, `YOUR_EMAIL_ADDRESS`, and `YOUR_EMAIL_FROM` in both scripts with your actual Infobip API key, sender email address, and sender name.
 
 5. **File to Attach:** Ensure the file you wish to attach (`receipt.pdf` in this case) is located in the `files/` directory.
 
+---
+
 ## Usage
 
-1. **Clone or Download the Script**
-   Clone the repository or copy the script into your project directory.
+### **1. Run the Synchronous Script (`infobip-http-api-requests.py`)**
 
-2. **Modify Configuration**
-   Update the following variables in the script:
+1. Modify the script to add your Infobip API details:
    ```python
    API_KEY = "YOUR_API_KEY"
    EMAILS_FROM_EMAIL = "YOUR_EMAIL_ADDRESS"
    EMAILS_FROM_NAME = "YOUR_EMAIL_FROM"
    ```
 
-3. **Run the Script**
-   Execute the script:
+2. Execute the script:
    ```bash
-   python email_sender.py
+   python email_sender_requests.py
    ```
 
-4. **Check the Response**
-   The script prints the API response to the console. Verify that the email was sent successfully.
+3. Check the console for the API response.
 
-## Code Overview
+---
 
-- **Form Data:**
-  The `data` dictionary contains fields such as `from`, `to`, `subject`, and `html` for email content.
+### **2. Run the Asynchronous Script (`infobip-http-api-aiohttp.py`)**
 
-- **File Attachment:**
-  The `files` dictionary includes the file to be attached. MIME type is determined automatically using the `mimetypes` module.
+1. Modify the script to add your Infobip API details:
+   ```python
+   API_KEY = "YOUR_API_KEY"
+   EMAILS_FROM_EMAIL = "YOUR_EMAIL_ADDRESS"
+   EMAILS_FROM_NAME = "YOUR_EMAIL_FROM"
+   ```
 
-- **Request:**
-  A POST request is sent to the Infobip Email API with the form data, headers, and attachment.
+2. Execute the script:
+   ```bash
+   python email_sender_aiohttp.py
+   ```
+
+3. Check the console for the API response.
+
+---
 
 ## Example HTML Email Content
 
-The script sends the following email body as an example:
+The scripts send the following email body as an example:
 ```html
 <html>
   <body>
@@ -74,15 +106,21 @@ The script sends the following email body as an example:
 </html>
 ```
 
+---
+
 ## Notes
 
 - **Security:** Never hard-code sensitive information such as API keys in your scripts. Use environment variables or a configuration file for secure storage.
 - **Error Handling:** Implement error handling for production use to capture and log API failures.
 - **Attachments:** Ensure the file path and MIME type are correct for the attachment.
 
+---
+
 ## License
 
-This script is released under the MIT License. See the [LICENSE](LICENSE) file for details.
+This repository is released under the MIT License. See the [LICENSE](LICENSE) file for details.
+
+---
 
 ## Support
 
